@@ -1,15 +1,15 @@
 class Solution:
     def rearrangeArray(self, nums: List[int]) -> List[int]:
-        # Bruteforce
-        pos = []
-        neg = []
+        # Two pointers
+        res = [None] * len(nums)
+        pos = 0
+        neg = 1 
         for i in nums:
-            if i<0:
-                neg.append(i)
+            if i > 0:
+                res[pos] = i
+                pos += 2
             else:
-                pos.append(i)
-        res = []
-        for i in range(len(pos)):
-            res.append(pos[i])
-            res.append(neg[i])
+                res[neg] = i
+                neg += 2
         return res
+        # res = [pos, neg, pos, neg]
