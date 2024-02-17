@@ -1,17 +1,21 @@
-from collections import Counter
 class Solution:
     def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
-        mp = Counter(arr)
-        v = list(mp.values())
-        cnt = 0
-        v.sort()
-        for i in range(len(v)):
-            if k > v[i]:
-                k -= v[i]
-                v[i] = 0
+        counter = collections.Counter(arr)
+        counter = dict(sorted(counter.items(), key = lambda item: item[1]))
+        for key, value in counter.items():
+            if k > value:
+                k = k - value
+                counter[key] = 0
             else:
-                v[i] -= k
+                counter[key] = counter[key] - k
                 k = 0
-            if v[i] != 0:
+                break
+        cnt = 0
+        for key, value in counter.items():
+            if value > 0:
                 cnt += 1
-        return cnt
+        return cnt 
+
+
+
+
