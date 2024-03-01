@@ -1,10 +1,18 @@
 class Solution:
     def maximumOddBinaryNumber(self, s: str) -> str:
-        sorted_s = sorted(s, reverse=True)
-        for i in range(len(s) - 1, -1, -1):
-            if sorted_s[i] == '1':
-                sorted_s[i], sorted_s[-1] = sorted_s[-1], sorted_s[i]
-                break
-        return ''.join(sorted_s)
+        res = '0'*len(s)
+        res = list(res)
+        j = 0
+        for c in s:
+            if c == '1':
+                if res[len(res) - 1] != '1':
+                    res[len(res) - 1] = c
+                else:
+                    if res[j] != '1':
+                        res[j] = c
+                        j += 1
+            else:
+                continue
+        return ''.join(res)
 
         
