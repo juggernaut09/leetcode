@@ -5,7 +5,7 @@ class Solution:
         i, j = 0, len(tokens) - 1
         score = 0
         maxScore = 0
-        while max(tokens):
+        while i<=j:
             if power >= tokens[i]:
                 power -= tokens[i]
                 tokens[i] = 0
