@@ -1,16 +1,11 @@
 class Solution:
     def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
-        i = 0
-        j = 0
-        common = float('inf')
+        hmap = {}
 
-        while i < len(nums1) and j < len(nums2):
-            if nums1[i] == nums2[j]:
-                common = nums1[i]
-                break
-            elif nums1[i] < nums2[j]:
-                i += 1
-            else:
-                j += 1
-        
-        return common if common != float('inf') else -1
+        for num in nums1:
+            hmap[num] = hmap.get(num, 0) + 1
+
+        for num in nums2:
+            if num in hmap.keys():
+                return num
+        return -1
