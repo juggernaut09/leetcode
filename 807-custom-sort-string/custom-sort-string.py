@@ -1,16 +1,19 @@
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
-        char_count = {char: 0 for char in order}
-        for char in s:
-            if char in char_count:
-                char_count[char] += 1
-    
-        sorted_s = ''
-        for char in order:
-            sorted_s += char * char_count[char]
-    
-        for char in s:
-            if char not in order:
-                sorted_s += char
+        s_map = {}
+        for c in s:
+            s_map[c] = s_map.get(c, 0) + 1
+        
+        res = ""
 
-        return sorted_s
+        for c in order:
+            if c in s_map.keys():
+                res = res + c * s_map[c]
+                del s_map[c]
+
+        for key, value in s_map.items():
+            res = res + key * value
+        return res
+
+
+        
