@@ -7,7 +7,10 @@ class Solution:
         chunk = freq[25] - 1
         idle = chunk * n
 
+        # calculate idle time for remaining tasks
         for i in range(24, -1, -1):
-            idle -= min(chunk, freq[i])
+            idle = idle - min(chunk, freq[i])
 
-        return len(tasks) + idle if idle >= 0 else len(tasks)
+        return (len(tasks) + idle) if idle >=0 else len(tasks)
+        
+
