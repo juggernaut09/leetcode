@@ -4,14 +4,12 @@ class Solution:
             return 0
 
         left, right, product, count = 0, 0, 1, 0
-        n = len(nums)
 
-        while right < n:
-            product *= nums[right]
+        while right < len(nums):
+            product = product * nums[right]
             while product >= k:
-                product //= nums[left]
+                product = product // nums[left]
                 left += 1
-            count += 1 + (right - left)
+            count = count + (right - left + 1)
             right += 1
-
         return count
