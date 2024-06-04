@@ -1,11 +1,16 @@
 class Solution:
     def longestPalindrome(self, s: str) -> int:
-        st = set()
-        res = 0
+        hmap = {}
+        odd_freq = 0
         for c in s:
-            if c in st:
-                res += 2
-                st.remove(c)
+            if c not in hmap.keys():
+                hmap[c] = 1
+                odd_freq += 1
             else:
-                st.add(c)
-        return res if not len(st) else res + 1
+                hmap[c] += 1
+                if hmap[c] % 2 == 0:
+                    odd_freq -= 1
+                else:
+                    odd_freq += 1
+
+        return len(s) - odd_freq + (odd_freq != 0)
