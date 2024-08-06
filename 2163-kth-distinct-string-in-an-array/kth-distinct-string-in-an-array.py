@@ -1,9 +1,12 @@
 class Solution:
     def kthDistinct(self, arr: List[str], k: int) -> str:
+        from collections import Counter
+
         counter = Counter(arr)
-        for v in arr:
-            if counter[v] == 1:
+        
+        for ele in arr:
+            if counter[ele] == 1:
                 k -= 1
-                if k == 0:
-                    return v
+            if k == 0:
+                return ele
         return ''
