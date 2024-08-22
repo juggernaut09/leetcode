@@ -5,16 +5,14 @@ class Solution:
             return False
         
         hmap = {}
-        used_words = set()
-
-
-        for i in range(len(pattern)):
-            if pattern[i] not in hmap.keys():
-                if s[i] in used_words:
+        
+        for p, word in zip(pattern, s):
+            if p in hmap.keys():
+                if hmap[p] != word:
                     return False
-                hmap[pattern[i]] = s[i]
-                used_words.add(s[i])
-            else: 
-                if hmap[pattern[i]] != s[i]:
+            else:
+                if word in hmap.values():
                     return False
+                hmap[p] = word
+        
         return True
