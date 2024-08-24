@@ -7,11 +7,15 @@ class Solution:
                 if num % d == 0:
                     divisors.append(d)
                     divisors.append(num // d)
+                    if len(divisors) > 4:
+                        return []
             return list(set(divisors))
 
         res = 0
         for num in nums:
             divisors = get_divisors(num)
+            if not len(divisors):
+                continue
             res += sum(divisors) if len(divisors) == 4 else 0
             
         return res
