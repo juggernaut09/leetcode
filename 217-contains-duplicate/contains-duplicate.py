@@ -1,3 +1,5 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        return len(nums) != len(set(nums))
+        from collections import Counter
+        counter = Counter(nums)
+        return len(counter) != len(nums) 
