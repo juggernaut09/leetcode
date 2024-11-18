@@ -3,5 +3,9 @@ class Solution:
         from collections import Counter
         res = []
         for i in range(n+1):
-            res.append(Counter(bin(i)[2:])['1'])
+            count = 0
+            while i:
+                count += i % 2
+                i = i >> 1
+            res.append(count)
         return res
