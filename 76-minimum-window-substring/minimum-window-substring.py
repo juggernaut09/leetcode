@@ -1,29 +1,44 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if t == "": 
+        from collections import Counter
+
+        if not s and not t:
             return ""
-        window, countT = {}, {}
-        for c in t:
-            countT[c] = countT.get(c, 0) + 1
+
+        windowCount = {}
+        countT = Counter(t)
+        formed = 0
+        required = len(countT)
+        min_win_length = float("inf")
+        min_win_idx = 0
+        left, right = 0, 0
+
+        # Expand the window by moving the right pointer
+        while right < len(s):
+            char = s[right]
+            windowCount[char] = windowCount.get(char, 0) + 1
+
+            if char in countT and windowCount[char] == countT[char]:
+                formed += 1
+
+            # Shrinking the window by moving the left pointer until the window is Invalid.
+            while left <= right and formed == required:
+                char = s[left] 
+
+                # Calculate the min_window_length and min_wind_start_idx
+                if right - left + 1 < min_win_length:
+                    min_win_length = right - left + 1
+                    min_win_idx = left
+
+                # Shrink the window
+                windowCount[char] -= 1
+
+                # if the freq of char in window is less than char frequency in countT the formed -= 1 
+                if char in countT and windowCount[char] < countT[char]:
+                    formed -= 1
+
+                left += 1
+
+            right += 1
         
-        have , need = 0, len(countT)
-        l = 0
-        res, resLen = [-1, -1], float("infinity")
-        for r in range(len(s)):
-            c = s[r]
-            window[c] = window.get(c, 0) + 1
-
-            if c in countT and window[c] == countT[c]:
-                have += 1
-            
-            while have == need:
-                if (r-l+1) < resLen:
-                    res = [l, r]
-                    resLen = (r-l+1)
-
-                window[s[l]] -= 1
-                if s[l] in countT and window[s[l]] < countT[s[l]]:
-                    have -= 1
-                l += 1
-        l, r = res
-        return s[l:r+1] if resLen != float("infinity") else ""
+        return s[min_win_idx: min_win_idx + min_win_length] if min_win_length != float("inf") else ""
