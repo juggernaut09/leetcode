@@ -1,19 +1,25 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        if len(s2) < len(s1):
+        from collections import Counter
+        if len(s1) > len(s2):
             return False
-        if len(s1) < len(s2):
-            small_str = s1
-            large_str = s2
-        else:
-            small_str = s2
-            large_str = s1
-        
-        w_size = len(small_str)
-        l, r = 0, w_size
-        while(r <= len(large_str)):
-            if sorted(small_str) == sorted(large_str[l:r]):
-                return True 
-            l += 1
-            r += 1
+
+        countS1 = Counter(s1)
+        windowCounter = Counter()
+
+        for i in range(len(s2)):
+            char = s2[i]
+
+            windowCounter[char] = windowCounter.get(char, 0) + 1
+
+            if i >= len(s1):
+                left_char = s2[i - len(s1)]
+                windowCounter[left_char] -= 1
+                if windowCounter[left_char] == 0:
+                    del windowCounter[left_char]
+
+            if windowCounter == countS1:
+                return True
+
         return False
+                
