@@ -1,14 +1,13 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        prevMap = {}
-        '''
-        x + y = target
-        target - x = y
+        hmap = {}
 
-        '''
-        for i, n in enumerate(nums):
-            y = target - n
-            if y in prevMap:
-                return [i, prevMap[y]]
-            prevMap[n] = i    
-        return
+        for i in range(len(nums)):
+            required = target - nums[i]
+            if required in hmap:
+                return [hmap[required], i]
+            else:
+                hmap[nums[i]] = i
+
+        return []
+        
