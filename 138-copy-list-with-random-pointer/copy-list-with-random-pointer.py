@@ -9,32 +9,49 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return head        
 
-        #Interleaved List
+        '''
+        A -> B -> C
+        A' -> B' -> C'
+
+        A -> A' -> B -> B' -> C -> C'
+        '''
+        if not head:
+            return head
+            
+        # creating new_nodes and merging with the existing nodes.
         curr = head
         while curr:
-            new_node = Node(curr.val, curr.next)
-            curr.next = new_node
-            curr = new_node.next
+            dup_node = Node(curr.val, curr.next)
+            curr.next = dup_node
+            curr = dup_node.next
 
-        # random pointer
+        # Setting random pointers
         curr = head
         while curr:
             if curr.random:
                 curr.next.random = curr.random.next
             curr = curr.next.next
 
-        # Splitting
-        original_head = head
-        dup_head = head.next
-        dup_head_cpy = dup_head
 
-        while original_head:
-            original_head.next = original_head.next.next
-            dup_head_cpy.next = dup_head_cpy.next.next if dup_head_cpy.next else None
-            original_head = original_head.next
-            dup_head_cpy = dup_head_cpy.next
+        # Splitting the nodes
+        original = head
+        clone = original.next
+        clone_head = clone
 
-        return dup_head
+        while original:
+            if original.next:
+                original.next = original.next.next
+
+            if clone.next:
+                clone.next = clone.next.next
+
+            original = original.next
+            clone = clone.next
+
+        return clone_head
+        
+            
+
+        
+             
