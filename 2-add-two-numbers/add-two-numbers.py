@@ -7,24 +7,28 @@ class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(0)
         curr = dummy
+        
         carry = 0
 
-        while l1 or l2:
-            if l1 and l2:
-                sum = (l1.val + l2.val + carry)
-                l1 = l1.next
-                l2 = l2.next
-            elif not l1:
-                sum = (0 + l2.val + carry)
-                l2 = l2.next
-            elif not l2:
-                sum = (l1.val + 0 + carry)
-                l1 = l1.next
-            carry =  sum // 10
-            curr.next = ListNode(sum % 10)
+        while l1 or l2 or carry:
+            l1_val = l1.val if l1 else 0
+            l2_val = l2.val if l2 else 0
+
+            # computer sum and carry
+            total = l1_val + l2_val + carry
+            carry = total//10
+            curr.next = ListNode(total%10)
+
+
+            # Move pointers forward
             curr = curr.next
-        
-        if carry > 0:
-            curr.next = ListNode(carry)
+            if l1: l1 = l1.next
+            if l2: l2 = l2.next
+
         return dummy.next
+
+
+
+
+
         
