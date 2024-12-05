@@ -24,6 +24,7 @@ class Codec:
             dfs(root.right)
         dfs(root)
         return ','.join(res)
+        
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -31,18 +32,19 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        vals = data.split(",")
+        vals = data.split(',')
         self.i = 0
+
         def dfs():
-            if vals[self.i] == "N":
+            if vals[self.i] == 'N':
                 self.i += 1
                 return None
-            root = TreeNode(vals[self.i])
+
+            root = TreeNode(int(vals[self.i]))
             self.i += 1
             root.left = dfs()
             root.right = dfs()
             return root
-            
         return dfs()
         
 
