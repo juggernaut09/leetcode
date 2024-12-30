@@ -1,23 +1,22 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        def can_eat_all(k):
-            total_no_hrs = 0
+        l = 1
+        r = max(piles)
+        res = max(piles)
 
-            for pile in piles:
-                total_no_hrs += (pile + k - 1) // k
+        while l <= r:
+            k = (l + r) // 2
 
-            return total_no_hrs <= h
+            total_hours = 0
 
-
-        left, right = 1, max(piles)
-
-        while left < right:
-            mid = (left + right) // 2
-
-            if can_eat_all(mid):
-                right = mid
+            for p in piles:
+                total_hours += math.ceil(p/k)
+            
+            if total_hours <= h:
+                res = min(res, k)
+                r = k - 1
             else:
-                left = mid + 1
+                l = k + 1
 
-        return left
+        return res
 
