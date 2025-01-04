@@ -8,7 +8,8 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        # find second pointer
+
+        # Find the second half of the linked List
         slow = head
         fast = head.next
 
@@ -17,27 +18,28 @@ class Solution:
             fast = fast.next.next
 
         second = slow.next
-        prev = slow.next = None
 
-        # reverse the second half
+        prev = None
+        slow.next = None
+
+        # Reverse the second half
         while second:
             temp = second.next
             second.next = prev
             prev = second
             second = temp
 
-
-        # merge two linked lists
-        first, second = head, prev
+        first = head
+        second = prev
+        # Merge the First half and second half
         while second:
-            tmp1, tmp2 = first.next, second.next
+            temp1 = first.next
+            temp2 = second.next
             first.next = second
-            second.next = tmp1
-            first, second = tmp1, tmp2
-        
+            second.next = temp1
+            first = temp1
+            second = temp2
 
-
-        
 
 
         
