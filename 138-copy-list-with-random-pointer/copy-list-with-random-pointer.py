@@ -9,48 +9,48 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-
         '''
         A -> B -> C
-        A' -> B' -> C'
-
         A -> A' -> B -> B' -> C -> C'
+        A' -> B' -> C'
         '''
         if not head:
             return head
-            
-        # creating new_nodes and merging with the existing nodes.
+
+        # Step 1 creating new nodes and linking with the existing list
         curr = head
         while curr:
-            dup_node = Node(curr.val, curr.next)
-            curr.next = dup_node
-            curr = dup_node.next
+            curr.next = Node(curr.val, curr.next)
+            curr = curr.next.next
 
         # Setting random pointers
         curr = head
         while curr:
-            if curr.random:
+            if curr.random and curr.next:
                 curr.next.random = curr.random.next
-            curr = curr.next.next
+            if curr.next:
+                curr = curr.next.next
 
 
-        # Splitting the nodes
-        original = head
-        clone = original.next
-        clone_head = clone
+        orig_head = head
+        clone_head = head.next
 
-        while original:
-            if original.next:
-                original.next = original.next.next
+        orig_curr = orig_head
+        clone_curr = clone_head
 
-            if clone.next:
-                clone.next = clone.next.next
-
-            original = original.next
-            clone = clone.next
+        while orig_curr:
+            if orig_curr.next:
+                orig_curr.next = orig_curr.next.next
+            if clone_curr.next:
+                clone_curr.next = clone_curr.next.next
+            orig_curr = orig_curr.next
+            clone_curr = clone_curr.next
 
         return clone_head
+
+
         
+
             
 
         
