@@ -14,18 +14,20 @@ class Solution:
             l1_val = l1.val if l1 else 0
             l2_val = l2.val if l2 else 0
 
-            # computer sum and carry
             total = l1_val + l2_val + carry
-            carry = total//10
-            curr.next = ListNode(total%10)
+            carry = total // 10
+            curr.next = ListNode(total % 10)
 
 
-            # Move pointers forward
             curr = curr.next
-            if l1: l1 = l1.next
-            if l2: l2 = l2.next
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+
 
         return dummy.next
+        
 
 
 
